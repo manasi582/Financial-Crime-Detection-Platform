@@ -245,7 +245,6 @@ fraud_detection/
 ├── Makefile                # make all | make app | make test | make clean
 ├── requirements.txt
 ├── README.md               # Project documentation
-├── INTERVIEW_NOTES.md      # Financial crime & risk Q&As + resume bullets
 └── POWERBI_GUIDE.md        # Data model, DAX measures, 3-page report layout
 ```
 
@@ -313,14 +312,6 @@ See [POWERBI_GUIDE.md](POWERBI_GUIDE.md) for:
 - Color theme
 
 CSVs are generated in `exports/powerbi/` after running `make all`.
-
----
-
-## Technical & Domain Reference
-
-See [INTERVIEW_NOTES.md](INTERVIEW_NOTES.md) for:
-- 15 risk, forensic, and financial crime domain questions with detailed answers
-- High-impact resume bullet templates with verified pipeline metrics
 
 ---
 
