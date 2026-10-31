@@ -1,6 +1,6 @@
 # FraudLens: Transaction Fraud Detection and Risk Analytics Platform
 
-> An end-to-end financial crime detection and risk analytics platform that detects high-risk payment transactions, balances fraud recovery against investigator overhead, and provides explainable alert triage.
+> An end-to-end financial crime detection and risk analytics platform built on **500,000 simulated PaySim transactions**, balancing fraud recovery against investigator overhead with explainable alert triage.
 
 ---
 
@@ -46,7 +46,9 @@ make test
 
 ---
 
-## Results & Operational Impact
+## Results & Operational Impact (Simulated Out-of-Time Backtest)
+
+> **Evaluation Context**: All performance figures below are derived from a strict chronological out-of-time backtest on **76,955 simulated test transactions** (final 15% temporal split, containing 93 fraud cases worth Rs. 9.17M). Results represent an offline cost-benefit simulation using PaySim-schema data.
 
 | Metric | Value |
 |--------|-------|
@@ -57,15 +59,15 @@ make test
 | **Recall at optimal** | **79.6%** (74 of 93 fraud caught on test set) |
 | **Alert Rate at optimal** | **0.13%** (101 of 76,955 transactions flagged) |
 | **Precision at optimal** | **73.3%** (27 false positives out of 101 alerts) |
-| **Net Savings (test set)** | **Rs. 8,949,748** (baseline loss Rs. 9,170,032) |
+| **Net Savings (Simulated Test Set)** | **Rs. 8,949,748** (baseline loss Rs. 9,170,032) |
 | **LR val PR-AUC** | 0.7656 |
 | **RF val PR-AUC** | 0.8772 |
 | **HGB val PR-AUC** | 0.8804 ← selected |
 | **Ablation: balance-error features** | **+0.1473 PR-AUC** (0.8591 → 0.7118 without them) |
 | **Best imbalance method** | random_undersample (val 0.8875 > SMOTE 0.8701 > class_weight 0.8591) |
 
-> **Key Operational Outcome:**  
-> At threshold 0.9545, the model catches **79.6%** of fraud while flagging only **0.13%** of transactions, preventing **Rs. 9,000,248** in losses at an investigation cost of Rs. 50,500 (yielding net savings of **Rs. 8,949,748**).
+> **Key Backtest Outcome:**  
+> On the 76,955-transaction held-out test set, setting the threshold to **0.9545** catches **79.6%** of fraud while flagging only **0.13%** of transactions (101 alerts). At an assumed review cost of Rs. 500 per alert, this prevents **Rs. 9,000,248** in losses with an operational overhead of Rs. 50,500, delivering **Rs. 8,949,748 in net simulated savings**.
 
 ### Why PR-AUC, not Accuracy?
 
@@ -232,6 +234,8 @@ fraud_detection/
 │   ├── raw/                # Place real PaySim CSV here (optional)
 │   └── processed/          # Auto-generated
 ├── db/                     # SQLite database (auto-generated)
+├── docs/
+│   └── images/             # Power BI dashboard screenshots
 ├── exports/
 │   └── powerbi/            # Dimensional CSVs for Power BI
 ├── models/                 # Trained model joblib files
@@ -303,15 +307,28 @@ Test suite covers:
 
 ---
 
-## Power BI
+## Power BI Dashboards
 
-See [POWERBI_GUIDE.md](POWERBI_GUIDE.md) for:
-- Data model and relationships
-- 10 DAX measures (including dynamic net savings with What-If parameter)
-- 3-page report layout with visual specifications
-- Color theme
+The repository includes a 3-page dimensional reporting suite built on the exported star-schema data (`exports/powerbi/`). See [POWERBI_GUIDE.md](POWERBI_GUIDE.md) for data models, DAX measures, and setup instructions.
 
-CSVs are generated in `exports/powerbi/` after running `make all`.
+### Page 1: Executive Overview
+High-level KPIs, daily fraud loss and volume trends, fraud mix by payment type, and operational precision gauge.
+
+![FraudLens Executive Overview](docs/images/page1_overview.png)
+
+---
+
+### Page 2: Fraud Patterns & Risk Analytics
+Forensic intelligence showing fraud amounts by transaction type, hourly fraud rate curves (peaking during 00:00–05:00 night hours), and transaction amount distribution tiers.
+
+![FraudLens Fraud Patterns](docs/images/page2_fraud_patterns.png)
+
+---
+
+### Page 3: Model Evaluation & Cost Sensitivity
+Data science and risk management analytics featuring cross-model performance benchmarks, threshold net savings optimization curves, precision-recall trade-offs, and cost sensitivity stress testing.
+
+![FraudLens Model and Cost](docs/images/page3_model_cost.png)
 
 ---
 
