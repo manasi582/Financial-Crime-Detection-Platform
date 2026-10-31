@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────
+# FraudLens Configuration
+# ─────────────────────────────────────────────
+
+# ── Data source ───────────────────────────────
+data:
+  mode: SYNTHETIC          # SYNTHETIC | REAL_PAYSIM
+  synthetic:
+    n_rows: 500000
+    n_steps: 720           # 30 days × 24 hours
+    random_seed: 42
+    fraud_rate_target: 0.002   # ~0.2%
+  real_paysim:
+    path: data/raw/PS_20174392719_1491204439457_log.csv
+    sample_rows: null      # null = load all
+
+# ── Database ──────────────────────────────────
+database:
+  url: "sqlite:///db/fraudlens.db"
+  # To switch to PostgreSQL, change to:
+  # url: "postgresql://user:password@localhost:5432/fraudlens"
+  chunk_size: 50000
+
+# ── Time-based split ──────────────────────────
+split:
+  train_frac: 0.70
+  val_frac:   0.15
+  # test_frac is implicitly 1 - train - val = 0.15
+
+# ── Feature engineering ───────────────────────
+features:
+  velocity_window_steps: 24   # 1 day look-back for destination velocity
+
+# ── Modeling ──────────────────────────────────
+modeling:
+  models:
+    - logistic_regression
+    - random_forest
+    - hist_gradient_boosting
+    - isolation_forest
+  imbalance_methods:
+    - class_weight
+    - random_undersample
+    - smote
+  tuning:
+    cv_folds: 3
+    scoring: average_precision   # PR-AUC
+  final_model: hist_gradient_boosting   # chosen on validation PR-AUC
+
+# ── Cost / business analysis ─────────────────
+business:
+  investigation_cost_per_alert: 500    # Rs. per alert investigated
+  fraud_recovery_rate_when_caught: 1.0 # 100% recovery if caught
+  currency_symbol: "Rs."
+  alert_rate_benchmarks:
+    - 0.005   # 0.5% of transactions
+    - 0.010   # 1.0% of transactions
+
+# ── Output paths ─────────────────────────────
+paths:
+  model_dir: models/
+  reports_dir: reports/
+  figures_dir: reports/figures/
+  metrics_file: reports/metrics.json
+  exports_dir: exports/powerbi/

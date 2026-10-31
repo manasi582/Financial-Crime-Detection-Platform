@@ -1,0 +1,190 @@
+{
+  "final_model": "hist_gradient_boosting",
+  "models": {
+    "logistic_regression": {
+      "split": "test",
+      "pr_auc": 0.768676,
+      "roc_auc": 0.997475,
+      "f1": 0.776471,
+      "precision": 0.857143,
+      "recall": 0.709677,
+      "threshold": 1.0,
+      "confusion_matrix": [
+        [
+          76851,
+          11
+        ],
+        [
+          27,
+          66
+        ]
+      ],
+      "n_flagged": 77,
+      "n_total": 76955,
+      "n_fraud": 93,
+      "alert_rate_pct": 0.1001,
+      "recall_at_5bp": 0.88172,
+      "recall_at_10bp": 0.924731,
+      "model_name": "logistic_regression",
+      "val_pr_auc": 0.7655956469396371
+    },
+    "random_forest": {
+      "split": "test",
+      "pr_auc": 0.82574,
+      "roc_auc": 0.996741,
+      "f1": 0.843373,
+      "precision": 0.958904,
+      "recall": 0.752688,
+      "threshold": 0.722828,
+      "confusion_matrix": [
+        [
+          76859,
+          3
+        ],
+        [
+          23,
+          70
+        ]
+      ],
+      "n_flagged": 73,
+      "n_total": 76955,
+      "n_fraud": 93,
+      "alert_rate_pct": 0.0949,
+      "recall_at_5bp": 0.860215,
+      "recall_at_10bp": 0.946237,
+      "model_name": "random_forest",
+      "val_pr_auc": 0.8772093729160333
+    },
+    "hist_gradient_boosting": {
+      "split": "test",
+      "pr_auc": 0.819715,
+      "roc_auc": 0.995722,
+      "f1": 0.762887,
+      "precision": 0.732673,
+      "recall": 0.795699,
+      "threshold": 0.954453,
+      "confusion_matrix": [
+        [
+          76835,
+          27
+        ],
+        [
+          19,
+          74
+        ]
+      ],
+      "n_flagged": 101,
+      "n_total": 76955,
+      "n_fraud": 93,
+      "alert_rate_pct": 0.1312,
+      "recall_at_5bp": 0.849462,
+      "recall_at_10bp": 0.892473,
+      "model_name": "hist_gradient_boosting",
+      "val_pr_auc": 0.8803950487842975,
+      "net_savings": 8949748.46,
+      "cost_optimal_threshold": 0.954453
+    },
+    "isolation_forest": {
+      "split": "test",
+      "pr_auc": 0.051192,
+      "roc_auc": 0.930127,
+      "f1": 0.14902,
+      "precision": 0.117284,
+      "recall": 0.204301,
+      "threshold": 0.005579,
+      "confusion_matrix": [
+        [
+          76719,
+          143
+        ],
+        [
+          74,
+          19
+        ]
+      ],
+      "n_flagged": 162,
+      "n_total": 76955,
+      "n_fraud": 93,
+      "alert_rate_pct": 0.2105,
+      "recall_at_5bp": 0.27957,
+      "recall_at_10bp": 0.397849,
+      "model_name": "isolation_forest",
+      "val_pr_auc": 0.07838574767066069
+    }
+  },
+  "imbalance_comparison": {
+    "class_weight": 0.8590590625152624,
+    "random_undersample": 0.8875011303702681,
+    "smote": 0.8700887437147312
+  },
+  "ablation": {
+    "with_balance_error": 0.859059,
+    "without_balance_error": 0.711776,
+    "delta": 0.147283
+  },
+  "business": {
+    "result_statement": "At threshold 0.9545, the model catches 79.6% of fraud while flagging only 0.13% of transactions, preventing Rs.9,000,248 in losses at an investigation cost of Rs.50,500 (net saving Rs.8,949,748).",
+    "opt_threshold": 0.954453,
+    "net_savings_at_opt_threshold": 8949748.46,
+    "baseline_loss": 9170032.820000002,
+    "investigation_cost_per_alert": 500
+  },
+  "sensitivity": [
+    {
+      "investigation_cost_per_alert": 100,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 10100.0,
+      "net_savings": 8990148.46,
+      "roi": 890.1137
+    },
+    {
+      "investigation_cost_per_alert": 250,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 25250.0,
+      "net_savings": 8974998.46,
+      "roi": 355.4455
+    },
+    {
+      "investigation_cost_per_alert": 500,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 50500.0,
+      "net_savings": 8949748.46,
+      "roi": 177.2227
+    },
+    {
+      "investigation_cost_per_alert": 750,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 75750.0,
+      "net_savings": 8924498.46,
+      "roi": 117.8152
+    },
+    {
+      "investigation_cost_per_alert": 1000,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 101000.0,
+      "net_savings": 8899248.46,
+      "roi": 88.1114
+    },
+    {
+      "investigation_cost_per_alert": 2000,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 202000.0,
+      "net_savings": 8798248.46,
+      "roi": 43.5557
+    },
+    {
+      "investigation_cost_per_alert": 5000,
+      "n_alerts": 101,
+      "prevented_loss": 9000248.46,
+      "investigation_cost_total": 505000.0,
+      "net_savings": 8495248.46,
+      "roi": 16.8223
+    }
+  ]
+}
