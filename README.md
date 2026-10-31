@@ -1,7 +1,6 @@
 # FraudLens: Transaction Fraud Detection and Risk Analytics Platform
 
-> **Portfolio project** by a final-year Computer Engineering student applying for  
-> KPMG Analyst — Risk, Forensic & Financial Crime Analytics
+> An end-to-end financial crime detection and risk analytics platform that detects high-risk payment transactions, balances fraud recovery against investigator overhead, and provides explainable alert triage.
 
 ---
 
@@ -26,8 +25,8 @@ All modeling decisions flow from this objective.
 ## Quick Start
 
 ```bash
-git clone <repo-url>
-cd fraud_detection
+git clone https://github.com/manasi582/Financial-Crime-Detection-Platform.git
+cd Financial-Crime-Detection-Platform
 
 # 1. Create virtual environment
 python -m venv venv && source venv/bin/activate
@@ -47,7 +46,7 @@ make test
 
 ---
 
-## Results (from `reports/metrics.json` — all numbers from actual pipeline runs)
+## Results & Operational Impact
 
 | Metric | Value |
 |--------|-------|
@@ -65,17 +64,15 @@ make test
 | **Ablation: balance-error features** | **+0.1473 PR-AUC** (0.8591 → 0.7118 without them) |
 | **Best imbalance method** | random_undersample (val 0.8875 > SMOTE 0.8701 > class_weight 0.8591) |
 
-> **Business result (verbatim from pipeline):**  
-> *"At threshold 0.9545, the model catches 79.6% of fraud while flagging only 0.13% of  
-> transactions, preventing Rs.9,000,248 in losses at an investigation cost of Rs.50,500  
-> (net saving Rs.8,949,748)."*
+> **Key Operational Outcome:**  
+> At threshold 0.9545, the model catches **79.6%** of fraud while flagging only **0.13%** of transactions, preventing **Rs. 9,000,248** in losses at an investigation cost of Rs. 50,500 (yielding net savings of **Rs. 8,949,748**).
 
 ### Why PR-AUC, not Accuracy?
 
 Fraud rate ≈ 0.13%. A model that labels every transaction "legitimate" achieves 99.87% accuracy
 — and catches zero fraud. PR-AUC measures model quality on the minority (fraud) class across
-all decision thresholds. It answers: *"Among the top N% I flag, what fraction are actually fraud?"*
-This is operationally meaningful for investigators.
+all decision thresholds. It answers: *"Among the top N% flagged, what fraction are actually fraud?"*
+This metric directly reflects investigator operational efficiency.
 
 ---
 
@@ -182,7 +179,7 @@ Realistic 8% balance noise + 40% of fraud uses partial drains (not full) to prev
 | HistGradientBoosting | Supervised, boosting | `class_weight='balanced'` |
 | Isolation Forest | Unsupervised, anomaly | N/A (no labels used) |
 
-Imbalance methods also compared: `class_weight` vs SMOTE vs random undersampling (on training data only).
+Imbalance methods also evaluated: `class_weight` vs SMOTE vs random undersampling (on training data only).
 
 ---
 
@@ -247,8 +244,8 @@ fraud_detection/
 ├── config.yaml             # Single source of truth for all parameters
 ├── Makefile                # make all | make app | make test | make clean
 ├── requirements.txt
-├── README.md               # This file
-├── INTERVIEW_NOTES.md      # 15 KPMG interview Q&As + resume bullets
+├── README.md               # Project documentation
+├── INTERVIEW_NOTES.md      # Financial crime & risk Q&As + resume bullets
 └── POWERBI_GUIDE.md        # Data model, DAX measures, 3-page report layout
 ```
 
@@ -266,7 +263,7 @@ make lint       # Run flake8 (requires flake8)
 
 ---
 
-## Design Decisions (noted here per brief)
+## Key Design Decisions
 
 1. **SQLite not PostgreSQL**: Zero-config for portfolio reproducibility. One-line migration to Postgres.
 2. **Synthetic data by default**: Works offline without Kaggle credentials. Real PaySim supported via config switch.
@@ -315,16 +312,16 @@ See [POWERBI_GUIDE.md](POWERBI_GUIDE.md) for:
 - 3-page report layout with visual specifications
 - Color theme
 
-CSVs are in `exports/powerbi/` after `make all`.
+CSVs are generated in `exports/powerbi/` after running `make all`.
 
 ---
 
-## Interview Preparation
+## Technical & Domain Reference
 
 See [INTERVIEW_NOTES.md](INTERVIEW_NOTES.md) for:
-- 15 likely KPMG interview questions with detailed answers
-- 3 resume bullet templates (fill in real numbers from `reports/metrics.json`)
+- 15 risk, forensic, and financial crime domain questions with detailed answers
+- High-impact resume bullet templates with verified pipeline metrics
 
 ---
 
-*Built end-to-end from scratch. All numbers in `reports/metrics.json` come from real pipeline runs.*
+*Built end-to-end from scratch with real pipeline metrics and verified test coverage.*

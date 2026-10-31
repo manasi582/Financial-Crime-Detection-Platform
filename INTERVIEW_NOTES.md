@@ -1,6 +1,6 @@
 # INTERVIEW_NOTES.md — FraudLens Project
 
-## 15 Likely KPMG Interview Questions & Answers
+## 15 Risk & Financial Crime Analytics Interview Questions & Answers
 
 ---
 
@@ -8,7 +8,7 @@
 
 **Answer:** Accuracy is misleading on heavily imbalanced datasets. With ~0.2% fraud rate, a model that labels every transaction as "legitimate" achieves 99.8% accuracy — yet it catches zero fraud. PR-AUC (area under the Precision-Recall curve) specifically measures model performance on the minority (fraud) class across all decision thresholds. It answers: "If I flag the top N% of transactions, how many are actual fraud?" This is operationally meaningful for investigators.
 
-For KPMG's financial crime work, the business cost of a missed fraud (false negative) vastly outweighs the inconvenience of a false alarm (false positive). PR-AUC captures this asymmetry; ROC-AUC does not, because it includes true negatives (correctly-labeled legitimate transactions) in its calculation.
+In institutional financial crime and forensic analytics work, the business cost of a missed fraud (false negative) vastly outweighs the inconvenience of a false alarm (false positive). PR-AUC captures this asymmetry; ROC-AUC does not, because it includes true negatives (correctly-labeled legitimate transactions) in its calculation.
 
 ---
 

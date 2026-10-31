@@ -101,8 +101,7 @@ with st.sidebar:
     **Model**: HistGradientBoosting  
     **Metric**: PR-AUC  
     ---
-    *Author: Final-year CS student*  
-    *KPMG Risk Analytics Demo*
+    *Financial Crime & Risk Analytics Platform*
     """)
 
 # ── Landing page content ──────────────────────────────────────────────────────

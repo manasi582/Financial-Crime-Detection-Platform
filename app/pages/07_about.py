@@ -144,11 +144,10 @@ See the ablation results on the **Model Performance** page.
 
 ---
 
-## 👤 Author
+## 💡 Project Scope & Competencies
 
-Final-year Computer Engineering student  
-Applying for KPMG Analyst — Risk, Forensic & Financial Crime Analytics
-
-*This project demonstrates: business framing, SQL analytics, ML engineering, 
-cost-based optimization, and production-ready code organization.*
+*This platform demonstrates end-to-end competencies in:*
+- **Business & Financial Crime Framing**: Focusing on monetary loss prevention vs. operational investigation costs
+- **Production ML Engineering**: Temporal anti-leakage splits, cost-calibrated thresholds, and model explainability
+- **Data Architecture & Analytics**: Analytical SQL views, star-schema Power BI dimensional models, and interactive investigator triage dashboards.
 """)
